@@ -1,0 +1,7 @@
+v 4
+file . "alu.vhd" "c8aa263698641dac6c7eb17329d981f9024fb975" "20240125201408.593":
+  entity alu at 1( 0) + 0 on 23;
+  architecture alu_b of alu at 25( 514) + 0 on 24;
+file . "alu_tb.vhd" "1f87b8a0bdc15ec86b56b4d929120b479273d813" "20240125201408.595":
+  entity alu_tb at 1( 0) + 0 on 25;
+  architecture alu_tb_module of alu_tb at 10( 103) + 0 on 26;
