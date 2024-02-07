@@ -10,7 +10,7 @@ entity Fetch is
 			clk		:	in std_logic;
 			rst		:	in std_logic;
 			PC_load	:	in std_logic;
-			PC_Jump	:	in std_logic_vector(7 downto 0);
+			PC_jump	:	in std_logic_vector(7 downto 0);
 			PC_out	:	out std_logic_vector(7 downto 0)
 			);
 end Fetch;
@@ -37,21 +37,13 @@ begin
 	
 		If rising_edge(clk) then
 			if en='1' then
-			
 				If PC_Load='0' then
-				
 					PC_counter<=std_logic_vector(unsigned(PC_counter)+1);
-				
 				else
-				
-					PC_counter<=PC_Jump;
-					
+					PC_counter<=PC_jump;
 				end if;
-				
 			end if;
-			
 		end if;
-		
 	end if;
 	
 end Process;
