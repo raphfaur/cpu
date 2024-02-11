@@ -21,7 +21,7 @@ end Fetch;
 architecture Fetch_a of Fetch is
 
 signal PC_counter: std_logic_vector(7 downto 0);
-signal delay : std_logic := '0';
+signal delay : natural range 0 to 2 ;
 Begin
 
 
@@ -29,7 +29,7 @@ Process (clk, rst)
 begin
 
 	if rst='1' then
-	  delay <= '0';
+	  delay <= 0;
 		PC_counter<= (others=>'0');
 	
 	else
@@ -37,14 +37,18 @@ begin
 		If rising_edge(clk) then
 			if en='1' then
 				If PC_Load='0' then
-          if delay='1' then
+          if delay=2 then
             PC_counter<=std_logic_vector(unsigned(PC_counter)+1);
           end if;
 				else
-					PC_counter<=PC_jump;
-				end if;
+					  PC_counter<=PC_jump;
+        end if;
 			end if;
-      delay <= not delay;
+      if delay = 2 then
+        delay <= 0 ;
+      else
+        delay <= delay + 1;
+      end if;
 		end if;
 	end if;
 	

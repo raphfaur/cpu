@@ -28,7 +28,7 @@ end DECODER;
 
 architecture decoder1 of DECODER is 
 
-signal counter : std_logic := '0';
+signal counter : natural range 0 to 2;
 begin
 
 process (clk, rst)
@@ -53,6 +53,7 @@ if rst='1' then
     addrRB <= (others => '0');
     en_reg <= '0';
     fetch_jmp <= "00000000";
+    counter <= 0;
 else 
 if rising_edge(clk) then
   
@@ -76,9 +77,15 @@ case format is
 		addrRB <= rb;
 		addrDest <= rdest;
 		
-    -- Enable w access
-		en_reg <= '1';
-		
+		-- Enable w access
+    if counter = 2 then
+     en_reg <= '1';
+     counter <= 0;
+    else
+     counter <= counter + 1;
+     en_reg <= '0';
+    end if;
+
     -- Send opcode to ALU
 		opcode_out <= op;
 
@@ -99,7 +106,13 @@ case format is
     addrRb <= rb;
 
     -- Enable w access
-    en_reg <= '1';
+    if counter = 2 then
+     en_reg <= '1';
+     counter <= 0;
+    else
+     counter <= counter + 1;
+     en_reg <= '0';
+    end if;
 
     -- Send opcode to ALU
     opcode_out <= op;
@@ -119,15 +132,15 @@ case format is
         addrDest <= rdest;
         addrRb <= rdest;
 
-        -- Wait register file
-        if counter ='1' then
-          en_reg <= '1';
-          counter <= '0';
+        -- Enable w access
+        if counter = 2 then
+         en_reg <= '1';
+         counter <= 0;
         else
-          counter <= '1';
-          en_reg <= '0';
+         counter <= counter + 1;
+         en_reg <= '0';
         end if;
-        
+
         -- Operand A will be imm and Operand B will be Reg
         op_a <= '1';
         op_b <= '0';
@@ -142,16 +155,15 @@ case format is
         
         addrDest <= rdest;
         addrRa <= rdest;
-
-        -- Wait register file
-        if counter ='1' then
-          en_reg <= '1';
-          counter <= '0';
+        -- Enable w access
+        if counter = 2 then
+         en_reg <= '1';
+         counter <= 0;
         else
-          counter <= '1';
-          en_reg <= '0';
+         counter <= counter + 1;
+         en_reg <= '0';
         end if;
-        
+       
         -- Operand B will be imm and Operand A will be Reg
         op_a <= '0';
         op_b <= '1';
@@ -171,16 +183,15 @@ case format is
         opcode_out <= "111";
 
         addrDest <= rdest;
-
-        -- Wait register file
-        if counter ='1' then
-          en_reg <= '1';
-          counter <= '0';
+        -- Enable w access
+        if counter = 2 then
+         en_reg <= '1';
+         counter <= 0;
         else
-          counter <= '1';
-          en_reg <= '0';
+         counter <= counter + 1;
+         en_reg <= '0';
         end if;
-
+ 
         op_a <= '1';
         op_b <= '0';
 
@@ -192,13 +203,13 @@ case format is
         -- Use ALU bypass
         opcode_out <= "111";
         addrDest <= rdest;
-        -- Wait register file
-        if counter ='1' then
-          en_reg <= '1';
-          counter <= '0';
+         -- Enable w access
+        if counter = 2 then
+         en_reg <= '1';
+         counter <= 0;
         else
-          counter <= '1';
-          en_reg <= '0';
+         counter <= counter + 1;
+         en_reg <= '0';
         end if;
         
         op_a <= '0';
