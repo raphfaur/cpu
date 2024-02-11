@@ -47,7 +47,7 @@ COMPONENT RegFile
   clk : in std_logic;
 	addr : in std_logic_vector (2 downto 0);
 	en : in std_logic;
-	w : in std_logic_vector (15 downto 0);
+  w : in std_logic_vector (15 downto 0);
 	addrB : in std_logic_vector (2 downto 0);
 	addrA : in std_logic_vector (2 downto 0);
 	outA : out std_logic_vector (15 downto 0);
@@ -114,7 +114,7 @@ end COMPONENT;
 COMPONENT ram is
 	port(
 			rw,en		:	in std_logic;
-			clk		:	in std_logic;
+      clk		:	in std_logic;
 			rst		:	in std_logic;
 			Adress	:	in std_logic_vector(7 downto 0);
 			Data_in	:	in std_logic_vector(31 downto 0);
