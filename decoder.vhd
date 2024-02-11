@@ -11,7 +11,6 @@ ENTITY DECODER IS
 	bytecode : in std_logic_vector(31 downto 0);
 	addrDest : out std_logic_vector (2 downto 0);
 	en_reg : out std_logic;
-  en_fetch : out std_logic;
   fetch_jmp : out std_logic_vector(7 downto 0);
   fetch_load : out std_logic;
 	addrRA : out std_logic_vector (2 downto 0);
