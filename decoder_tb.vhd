@@ -22,7 +22,8 @@ component decoder IS
   immB : out std_logic_vector(15 downto 0);
 	op_A : out std_logic;
 	op_B : out std_logic;
-	opcode_out : out std_logic_vector(2 downto 0)
+	opcode_out : out std_logic_vector(2 downto 0);
+  zf : in std_logic
 );
 
 end component;
@@ -41,7 +42,7 @@ signal sr_immA : std_logic_vector (15 downto 0);
 signal sr_op_A : std_logic;
 signal sr_op_B : std_logic;
 signal sr_opcode_out : std_logic_vector(2 downto 0);
-
+signal sr_zf : std_logic;
 begin
 
 sr_clk <= not sr_clk after 7 ns;
@@ -61,7 +62,8 @@ port map (
   immB => sr_immB,
 	op_A => sr_op_A,
 	op_B => sr_op_B,
-	opcode_out => sr_opcode_out
+	opcode_out => sr_opcode_out,
+  zf => sr_zf
 );
 
 process

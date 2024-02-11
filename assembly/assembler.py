@@ -10,6 +10,7 @@ semantic = {
     "INC": "000",
     "DEC": "001",
     "NOP": "010",
+    "JMPZ": "110",
 }
 
 with open("main.asm") as file:
@@ -53,16 +54,23 @@ with open("main.asm") as file:
                     opcode = semantic[op]
                     imm = "{0:08b}".format(int(args[1]))
                     bytecode = f + opcode + 6 * "0" + imm + 8 * "0" + 5 * "0"
+                elif op == "JMPZ":
+                    opcode = semantic[op]
+                    imm = "{0:08b}".format(int(args[1]))
+                    bytecode = f + opcode + 6 * "0" + imm + 8 * "0" + 5 * "0"
                 else:
                     if args[2][0] == "R":
                         opcode = "100"
                         bytecode = (
-                            f + opcode + "{0:03b}".format(int(args[1][1])) +  "{0:03b}".format(int(args[2][1])) + 21 * "0"
+                            f
+                            + opcode
+                            + "{0:03b}".format(int(args[1][1]))
+                            + "{0:03b}".format(int(args[2][1]))
+                            + 21 * "0"
                         )
                     else:
                         opcode = "011"
-                        print( "{0:08b}".format(int(args[1][1]))
-)
+                        print("{0:08b}".format(int(args[1][1])))
                         bytecode = (
                             f
                             + opcode

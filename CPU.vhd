@@ -76,6 +76,7 @@ COMPONENT Decoder
   rst : in std_logic;
   clk : in std_logic;
 	bytecode : in std_logic_vector(31 downto 0);
+  zf : in std_logic;
 	addrDest : out std_logic_vector (2 downto 0);
   en_reg : out std_logic;
   en_fetch : out std_logic;
@@ -164,6 +165,7 @@ signal ram_sr_Data_out :	std_logic_vector(31 downto 0);
 signal decoder_sr_clk : std_logic;
 signal decoder_sr_rst : std_logic;
 signal decoder_sr_bytecode : std_logic_vector(31 downto 0);
+signal decoder_sr_zf : std_logic;
 signal decoder_sr_addrDest : std_logic_vector (2 downto 0);
 signal decoder_sr_en_reg : std_logic;
 signal decoder_sr_en_fetch : std_logic;
@@ -263,6 +265,9 @@ alu_sr_op <= decoder_sr_opcode_out;
 
 regfile_sr_w <= alu_sr_output;
 
+-- Connect zf
+decoder_sr_zf <= alu_sr_zf;
+
 -- Connect RUN and fetch enable in order to be able to pause the cpu fetching
 
 fetch_sr_en <= RUN;
@@ -306,6 +311,7 @@ port map
 clk => decoder_sr_clk,
 rst => decoder_sr_rst,
 bytecode => decoder_sr_bytecode  ,
+zf => decoder_sr_zf,
 addrDest => decoder_sr_addrDest,
 en_reg => decoder_sr_en_reg,
 en_fetch => decoder_sr_en_fetch,

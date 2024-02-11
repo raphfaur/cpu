@@ -20,7 +20,8 @@ ENTITY DECODER IS
   immB : out std_logic_vector(15 downto 0);
 	op_A : out std_logic;
 	op_B : out std_logic;
-	opcode_out : out std_logic_vector(2 downto 0)
+	opcode_out : out std_logic_vector(2 downto 0);
+  zf : in std_logic
 );
 
 end DECODER;
@@ -57,7 +58,7 @@ if rising_edge(clk) then
   
 format := bytecode(31 downto 30);
 op := bytecode(29 downto 27);
-if format /= "10" or op /= "101" then
+if format /= "10" or op /= "101" or op /= "110" then
   fetch_load <= '0';
 end if;
 case format is
@@ -207,15 +208,15 @@ case format is
       -- JMP
       when "101" =>
         fetch_jmp <= bytecode(20 downto 13);
-        
-        if counter ='1' then
-          fetch_load <= '1';
-          counter <= '0';
-        else
-          counter <= '1';
-          fetch_load <= '0';
-        end if;
-
+        fetch_load <= '1';
+      
+      -- JMPZ
+      when "110" =>
+        if zf = '1' then 
+        fetch_jmp <= bytecode(20 downto 13);
+        fetch_load <= '1';
+        end if; 
+      
       when others =>
         null;
     end case;
