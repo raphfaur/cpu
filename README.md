@@ -30,6 +30,7 @@ python3 assembler.py
 
 ```
 git checkout main
+cd src/
 ghdl -a *.vhd
 ghdl -r cpu_tb --stop-time=10000ns --wave=wave.ghw
 gtkwave wave.ghw
@@ -44,7 +45,9 @@ git switch FPGA
 Then you'll need to build a `ram.mif` file in order to flash RAM in Quartus.  
 A great tool is available there : https://gist.github.com/Towdium/1a2fad63dd3665c064df48b39b41ab01
 ```
+cd assembly/
 python3 convert_to_mif.py -d 256 main.img ram.mif
+mv ram.mif ../ram.mif
 ```
 
 Open Quartus and run compilation as you would usually do.
