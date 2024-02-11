@@ -77,7 +77,7 @@ case format is
 		addrRB <= rb;
 		addrDest <= rdest;
 		
-		-- Enable w access
+		-- Enable w access on last time
     if counter = 2 then
      en_reg <= '1';
      counter <= 0;
@@ -105,7 +105,7 @@ case format is
     addrDest <= rdest;
     addrRb <= rb;
 
-    -- Enable w access
+    -- Enable w access on last time
     if counter = 2 then
      en_reg <= '1';
      counter <= 0;
@@ -132,7 +132,7 @@ case format is
         addrDest <= rdest;
         addrRb <= rdest;
 
-        -- Enable w access
+        -- Enable w access on last time
         if counter = 2 then
          en_reg <= '1';
          counter <= 0;
@@ -155,7 +155,7 @@ case format is
         
         addrDest <= rdest;
         addrRa <= rdest;
-        -- Enable w access
+        -- Enable w access on last time
         if counter = 2 then
          en_reg <= '1';
          counter <= 0;
@@ -183,7 +183,7 @@ case format is
         opcode_out <= "111";
 
         addrDest <= rdest;
-        -- Enable w access
+        -- Enable w access on last time
         if counter = 2 then
          en_reg <= '1';
          counter <= 0;
@@ -203,7 +203,7 @@ case format is
         -- Use ALU bypass
         opcode_out <= "111";
         addrDest <= rdest;
-         -- Enable w access
+         -- Enable w access on last time
         if counter = 2 then
          en_reg <= '1';
          counter <= 0;

@@ -208,7 +208,7 @@ SIGNAL	zero :  STD_LOGIC;
 SIGNAL	one :  STD_LOGIC;
 SIGNAL	HEX_out0 :  STD_LOGIC_VECTOR(7 DOWNTO 0);
 SIGNAL	HEX_out1 :  STD_LOGIC_VECTOR(7 DOWNTO 0);
-SIGNAL	HEX_out2 :  STD_LOGIC_VECTOR(6 DOWNTO 0);
+SIGNAL	HEX_out2 :  STD_LOGIC_VECTOR(7 DOWNTO 0);
 SIGNAL	HEX_out3 :  STD_LOGIC_VECTOR(7 DOWNTO 0);
 SIGNAL	HEX_out4 :  STD_LOGIC_VECTOR(7 DOWNTO 0);
 SIGNAL	seg7_in0 :  STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -354,62 +354,64 @@ output => alu_sr_output ,
 op => alu_sr_op
 );
 
--- b2v_inst : seg7_lut
--- PORT MAP(iDIG => seg7_in0,
--- 		 oSEG => HEX_out4(6 DOWNTO 0));
--- 
--- 
--- b2v_inst1 : seg7_lut
--- PORT MAP(iDIG => seg7_in1,
--- 		 oSEG => HEX_out3(6 DOWNTO 0));
--- 
--- 
--- b2v_inst2 : seg7_lut
--- PORT MAP(iDIG => seg7_in2,
--- 		 oSEG => HEX_out2(6 DOWNTO 0));
--- 
--- 
--- b2v_inst3 : seg7_lut
--- PORT MAP(iDIG => seg7_in3,
--- 		 oSEG => HEX_out1(6 DOWNTO 0));
--- 
--- 
--- b2v_inst4 : seg7_lut
--- PORT MAP(iDIG => seg7_in4,
--- 		 oSEG => HEX_out0(6 DOWNTO 0));
--- 
--- 
--- b2v_inst5 : dig2dec
--- PORT MAP(		 vol => "0000000000000001",
--- 		 seg0 => seg7_in4,
--- 		 seg1 => seg7_in3,
--- 		 seg2 => seg7_in2,
--- 		 seg3 => seg7_in1,
--- 		 seg4 => seg7_in0);
--- 
--- HEX0 <= HEX_out0;
--- HEX1 <= HEX_out1;
--- HEX2 <= HEX_out2;
--- HEX3 <= HEX_out3;
--- HEX4 <= HEX_out4;
--- HEX5(7) <= one;
--- HEX5(6) <= one;
--- HEX5(5) <= one;
--- HEX5(4) <= one;
--- HEX5(3) <= one;
--- HEX5(2) <= one;
--- HEX5(1) <= one;
--- HEX5(0) <= one;
--- 
--- -- zero <= '0';
--- -- one <= '1';
--- -- HEX_out0(7) <= '1';
--- -- HEX_out1(7) <= '1';
--- -- HEX_out2(7) <= '1';
--- -- HEX_out3(7) <= '1';
--- -- HEX_out4(7) <= '1';
--- 
--- 
+-- Map digital 7 seg
+
+b2v_inst : seg7_lut
+PORT MAP(iDIG => seg7_in0,
+oSEG => HEX_out4(6 DOWNTO 0));
+
+
+b2v_inst1 : seg7_lut
+PORT MAP(iDIG => seg7_in1,
+oSEG => HEX_out3(6 DOWNTO 0));
+
+
+b2v_inst2 : seg7_lut
+PORT MAP(iDIG => seg7_in2,
+oSEG => HEX_out2(6 DOWNTO 0));
+
+
+b2v_inst3 : seg7_lut
+PORT MAP(iDIG => seg7_in3,
+oSEG => HEX_out1(6 DOWNTO 0));
+
+
+b2v_inst4 : seg7_lut
+PORT MAP(iDIG => seg7_in4,
+oSEG => HEX_out0(6 DOWNTO 0));
+
+
+b2v_inst5 : dig2dec
+PORT MAP(		 vol => "0000000000000001",
+seg0 => seg7_in4,
+seg1 => seg7_in3,
+seg2 => seg7_in2,
+seg3 => seg7_in1,
+seg4 => seg7_in0);
+
+HEX0 <= HEX_out0;
+HEX1 <= HEX_out1;
+HEX2 <= HEX_out2;
+HEX3 <= HEX_out3;
+HEX4 <= HEX_out4;
+HEX5(7) <= one;
+HEX5(6) <= one;
+HEX5(5) <= one;
+HEX5(4) <= one;
+HEX5(3) <= one;
+HEX5(2) <= one;
+HEX5(1) <= one;
+HEX5(0) <= one;
+
+zero <= '0';
+one <= '1';
+HEX_out0(7) <= '1';
+HEX_out1(7) <= '1';
+HEX_out2(7) <= '1';
+HEX_out3(7) <= '1';
+HEX_out4(7) <= '1';
+
+
 LEDR <= SW;
 
 END bdf_type;
