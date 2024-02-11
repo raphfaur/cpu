@@ -2,8 +2,8 @@
 
 # Basic VHDL CPU with support for FPGA DE10 Lite 💻 </h2>
 
-This repository contains the code I developped in order to build a full-VHDL CPU.
-Some of the files for hardware support (digital 7 seg and dig2dec were not developed by me)
+This repository contains the code I developped in order to build a full-VHDL CPU.  
+Some of the files for hardware support (digital 7 seg and dig2dec) were not developed by me.
 
 ## Setup :
 I personnaly used GHDL 3.0 and Gtkwave on ARM MacOS to run and vizualise all the simulation.
