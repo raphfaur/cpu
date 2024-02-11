@@ -15,7 +15,9 @@ component fetch IS
 			rst		:	in std_logic;
 			PC_load	:	in std_logic;
 			PC_jump	:	in std_logic_vector(7 downto 0);
-			PC_out	:	out std_logic_vector(7 downto 0)
+			PC_out	:	out std_logic_vector(7 downto 0);
+      ram_en : out std_logic;
+      ram_rw : out std_logic
 			);
 end component;
 
@@ -25,6 +27,8 @@ signal sr_rst : std_logic;
 signal sr_PC_load : std_logic;
 signal sr_PC_jump : std_logic_vector (7 downto 0);
 signal sr_PC_out : std_logic_vector (7 downto 0);
+signal sr_ram_en : std_logic;
+signal sr_ram_rw : std_logic;
 
 begin
 
@@ -36,7 +40,9 @@ port map (
 	rst => sr_rst,
 	PC_load => sr_PC_load,
 	PC_jump => sr_PC_jump,
-	PC_out => sr_PC_out
+	PC_out => sr_PC_out,
+  ram_en => sr_ram_en,
+  ram_rw => sr_ram_rw
 );
 
 process
