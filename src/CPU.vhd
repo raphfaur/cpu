@@ -18,6 +18,7 @@
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all; 
+Use ieee.numeric_std.all ;
 
 ENTITY CPU IS 
 	PORT
@@ -30,9 +31,10 @@ ENTITY CPU IS
 		HEX3 :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
 		HEX4 :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
 		HEX5 :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0);
-		LEDR :  OUT  STD_LOGIC_VECTOR(9 DOWNTO 0);
+		LEDR :  OUT  STD_LOGIC_VECTOR(9 DOWNTO 0) := "0000000000";
     RUN : in std_logic;
-    RST : in std_logic
+    RST : in std_logic;
+	 led : out std_logic
 	);
 END CPU;
   
@@ -219,19 +221,36 @@ SIGNAL	seg7_in4 :  STD_LOGIC_VECTOR(3 DOWNTO 0);
 SIGNAL	seg7_in5 :  STD_LOGIC_VECTOR(7 DOWNTO 0);
 
 
+signal counter : natural range 0 to 50000000 := 0;
+signal clk : std_logic := '0';
 BEGIN 
 
+process(MAX10_CLK1_50)
+begin
+if rising_edge(MAX10_CLK1_50) then
+if counter = 1000000 then
+	counter <= 0;
+	clk <= not clk;
+else
+	counter <= counter +1;
+end if;
+end if;
+
+end process;
+	
+led <= clk;
+	
 -- Connect clk and reset
 
-fetch_sr_rst <= RST;
-decoder_sr_rst <= RST;
-ram_sr_rst <= RST;
-regfile_sr_rst <= RST;
+fetch_sr_rst <= not RST;
+decoder_sr_rst <= not RST;
+ram_sr_rst <= not RST;
+regfile_sr_rst <= not RST;
 
-regfile_sr_clk <= MAX10_CLK1_50;
-ram_sr_clk <= MAX10_CLK1_50;
-fetch_sr_clk <= MAX10_CLK1_50;
-decoder_sr_clk <= MAX10_CLK1_50;
+regfile_sr_clk <= clk;
+ram_sr_clk <= clk;
+fetch_sr_clk <= clk;
+decoder_sr_clk <= clk;
 
 -- Connect ram and Fetch
 
@@ -382,7 +401,7 @@ oSEG => HEX_out0(6 DOWNTO 0));
 
 
 b2v_inst5 : dig2dec
-PORT MAP(		 vol => "0000000000000001",
+PORT MAP(		 vol => alu_sr_output,
 seg0 => seg7_in4,
 seg1 => seg7_in3,
 seg2 => seg7_in2,
@@ -412,6 +431,15 @@ HEX_out3(7) <= '1';
 HEX_out4(7) <= '1';
 
 
-LEDR <= SW;
-
+LEDR(0) <= clk;
+process(clk)
+begin
+for i in 0 to 7 loop
+	if to_integer(unsigned(regfile_sr_addr)) = i then
+		LEDR(i+1) <= '1';
+	else 
+		LEDR(i+1) <= '0';
+	end if;
+end loop;
+end process;
 END bdf_type;
