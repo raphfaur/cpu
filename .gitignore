@@ -6,3 +6,6 @@ work/
 *.bak
 *.ghw
 *.cf
+assembly/*.asm
+assembly/*.img
+.hdl_checker/
