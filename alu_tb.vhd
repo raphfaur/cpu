@@ -19,8 +19,6 @@ PORT(
 	op_B : in std_logic;
 	-- Zero flag
 	zf : out std_logic;
-	-- Overflow flag
-	ovf : out std_logic;
 	output : out std_logic_vector (15 downto 0);
 	op : in std_logic_vector (2 downto 0)
 );
@@ -36,8 +34,6 @@ signal sr_op_A : std_logic;
 signal sr_op_B : std_logic;
 -- Zero flag
 signal sr_zf : std_logic;
--- Overflow flag
-signal sr_ovf : std_logic;
 signal sr_output : std_logic_vector (15 downto 0);
 signal sr_op : std_logic_vector (2 downto 0);
 
@@ -54,7 +50,6 @@ port map (
 	op_A => sr_op_A,
 	op_B => sr_op_B,
 	zf => sr_zf,
-	ovf => sr_ovf,
 	output => sr_output,
 	op => sr_op
 );

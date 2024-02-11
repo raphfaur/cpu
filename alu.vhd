@@ -14,8 +14,6 @@ PORT(
 	op_B : in std_logic;
 	-- Zero flag
 	zf : out std_logic;
-	-- Overflow flag
-	ovf : out std_logic;
 	output : out std_logic_vector (15 downto 0);
 	op : in std_logic_vector (2 downto 0)
 );

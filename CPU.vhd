@@ -103,8 +103,6 @@ PORT(
 	op_B : in std_logic;
 	-- Zero flag
 	zf : out std_logic;
-	-- Overflow flag
-	ovf : out std_logic;
 	output : out std_logic_vector (15 downto 0);
 	op : in std_logic_vector (2 downto 0)
 );
@@ -200,7 +198,6 @@ signal alu_sr_imm_in_B : std_logic_vector (15 downto 0);
 signal alu_sr_op_A : std_logic;
 signal alu_sr_op_B : std_logic;
 signal alu_sr_zf : std_logic;
-signal alu_sr_ovf : std_logic;
 signal alu_sr_output : std_logic_vector (15 downto 0);
 signal alu_sr_op : std_logic_vector (2 downto 0);
 
@@ -347,7 +344,6 @@ imm_in_B => alu_sr_imm_in_B ,
 op_A => alu_sr_op_A ,
 op_B => alu_sr_op_B ,
 zf => alu_sr_zf ,
-ovf => alu_sr_ovf ,
 output => alu_sr_output ,
 op => alu_sr_op
 );
